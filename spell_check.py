@@ -1,3 +1,5 @@
+from levenshtein import levenshtein
+
 class SpellCheck():
     def __init__(self):
         self.english_dict = {}
@@ -33,4 +35,17 @@ if __name__ == "__main__":
     spell_check = SpellCheck()
     spell_check.read_file()
     spell_check.get_user_input()
-    print(spell_check.check_words())
+    words=spell_check.check_words()
+    for i in range(len(words)):
+        mostSimilarScore=1000
+        mostSimilarWord=None
+        curWord=words[i]
+        for j in range(len(spell_check.english_dict)):
+            curComp=levenshtein(curWord, spell_check.english_dict[j])
+            if curComp<mostSimilarScore:
+                mostSimilarScore=curComp
+                mostSimilarWord= spell_check.english_dict[j]
+        print(mostSimilarWord, mostSimilarScore)
+            
+                
+        
