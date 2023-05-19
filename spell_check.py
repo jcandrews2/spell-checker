@@ -18,7 +18,8 @@ class SpellCheck():
     # Gets a passage from the user and takes each individual work into a list
     def get_user_input(self):
         passage = input("Enter a passage:\n")
-        self.user_words = passage.split()
+        passage1=passage.lower()
+        self.user_words = passage1.split()
 
     # Checks all words in the passage against the dictionary and returns words that do not exist
     def check_words(self):
@@ -41,10 +42,11 @@ if __name__ == "__main__":
         mostSimilarWord=None
         curWord=words[i]
         for j in range(len(spell_check.english_dict)):
-            curComp=levenshtein(curWord, spell_check.english_dict[j])
-            if curComp<mostSimilarScore:
-                mostSimilarScore=curComp
-                mostSimilarWord= spell_check.english_dict[j]
+            if abs(len(curWord)-len(spell_check.english_dict[j]))<2:
+                curComp=levenshtein(curWord, spell_check.english_dict[j])
+                if curComp<mostSimilarScore:
+                    mostSimilarScore=curComp
+                    mostSimilarWord= spell_check.english_dict[j]
         print(mostSimilarWord, mostSimilarScore)
             
                 
