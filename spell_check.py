@@ -43,11 +43,24 @@ if __name__ == "__main__":
         curWord=words[i]
         for j in range(len(spell_check.english_dict)):
             if abs(len(curWord)-len(spell_check.english_dict[j]))<2:
-                curComp=levenshtein(curWord, spell_check.english_dict[j])
-                if curComp<mostSimilarScore:
-                    mostSimilarScore=curComp
-                    mostSimilarWord= spell_check.english_dict[j]
-        print(mostSimilarWord, mostSimilarScore)
+                similarEnough=False
+                if len(curWord)<3:
+                    similarEnough=True
+                else:
+                    similarityScore=0
+                    for letter in curWord:
+                        if letter in spell_check.english_dict[j]:
+                            similarityScore+=1
+                    if (len(curWord)-similarityScore)<3:
+                            similarEnough=True
+                if similarEnough==True:        
+                    curComp=levenshtein(curWord, spell_check.english_dict[j])
+                    if curComp<mostSimilarScore:
+                        mostSimilarScore=curComp
+                        mostSimilarWord= spell_check.english_dict[j]
+        if mostSimilarWord!=None:
+                print(mostSimilarWord, mostSimilarScore)
+    print("done")
             
                 
         
