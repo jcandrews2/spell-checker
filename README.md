@@ -6,7 +6,7 @@ How to run:
 2. enter a passage when prompted (preferrably with misspelled words)
 
 bk_tree.py: contains logic for the bk tree and main method.     
-bktree.pickle: saved version of the completed bk tree.    
+bktree.pickles: saved version of the completed bk trees.    
 word_bank.txt: word bank of 10,000 popular english words to be checked by levenshtein.     
 spell_check.py: checks the input words against the dictionary and returns a list of misspelled words.     
 levenshtein.py: contatins the logic to run the levenshtein algorithm on two input words. Returns a similarity score.     
