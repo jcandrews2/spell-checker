@@ -1,3 +1,6 @@
+import pickle
+import networkx as nx
+
 from spell_check import SpellCheck
 from levenshtein import levenshtein
 
@@ -11,6 +14,7 @@ class Node():
 class BKTree():
     def __init__(self):
         self.root = None
+        self.gr = nx.Graph()
 
     # Inserts word into correct location in tree
     def insert(self, current_node, to_insert):
@@ -29,8 +33,10 @@ class BKTree():
         if distance in current_node.children:
             self.insert(current_node.children[distance], to_insert)
         else:
-            current_node.children[distance] = Node(to_insert)
-
+            new_node = Node(to_insert)
+            current_node.children[distance] = new_node
+            self.gr.add_edge(current_node, new_node)
+            
         return current_node
 
     # Gets a list of nodes close to current_node within the search distance
@@ -63,13 +69,27 @@ if __name__ == "__main__":
     spell_check.read_file()
     tree = BKTree()
 
+    '''
+    progress_bar = 0
     print("Loading BK tree...")
     for dict_word in spell_check.english_dict.values():
-        tree.insert(tree.root, dict_word)
+        if len(dict_word) < 8:
+            tree.insert(tree.root, dict_word)
+            print(progress_bar, "out of 9558")
+            progress_bar += 1
+        else:
+            print(progress_bar, "out of 9558")
+            progress_bar += 1
+       
+    pickle.dump(tree.gr, open('bktree.pickle', 'wb'))
+    '''
 
-    for i in range(5):
-        spell_check.get_user_input()
-        words = spell_check.check_words()
-        for word in words:
-            print("Misspelled word:\n", word)
-            print("Similar words:\n", tree.search(tree.root, word, 1))
+    tree.gr = pickle.load(open('bktree.pickle', 'rb'))
+    loaded_tree = list(tree.gr.nodes)
+  
+    spell_check.get_user_input()
+    words = spell_check.check_words()
+    for word in words:
+        print("Misspelled word:\n", word)
+        print("Similar words:\n", tree.search(loaded_tree[0], word, 1))
+            
