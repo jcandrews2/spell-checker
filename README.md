@@ -5,7 +5,7 @@ How to run:
 1. run bk_tree.py
 2. enter a passage when prompted (preferrably with misspelled words)
 
-Experiment: 
+Experiment:         
 The experiment tests and graphs the comparison count versus the size of the bk tree from the search method.     
 The worst case scenario for the search method is whatever word is within one edit distance of the most words in the tree.
 For the experiment we choose to search for words similar to 'a'.    
