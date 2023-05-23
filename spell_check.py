@@ -1,5 +1,3 @@
-from levenshtein import levenshtein
-
 class SpellCheck():
     def __init__(self):
         self.english_dict = {}
@@ -7,7 +5,7 @@ class SpellCheck():
 
     # Reads the txt file and inserts words into hashmap
     def read_file(self):
-        file = open("google-10000-english-no-swears.txt", "r")
+        file = open("word_bank.txt", "r")
         lines = file.readlines()
 
         key = 0
@@ -30,37 +28,8 @@ class SpellCheck():
                 invalid_words.append(word)
         return invalid_words
 
-
-# Testing functions
-if __name__ == "__main__":
-    spell_check = SpellCheck()
-    spell_check.read_file()
-    spell_check.get_user_input()
-    words=spell_check.check_words()
-    for i in range(len(words)):
-        mostSimilarScore=1000
-        mostSimilarWord=None
-        curWord=words[i]
-        for j in range(len(spell_check.english_dict)):
-            if abs(len(curWord)-len(spell_check.english_dict[j]))<2:
-                similarEnough=False
-                if len(curWord)<3:
-                    similarEnough=True
-                else:
-                    similarityScore=0
-                    for letter in curWord:
-                        if letter in spell_check.english_dict[j]:
-                            similarityScore+=1
-                    if (len(curWord)-similarityScore)<3:
-                            similarEnough=True
-                if similarEnough==True:        
-                    curComp=levenshtein(curWord, spell_check.english_dict[j])
-                    if curComp<mostSimilarScore:
-                        mostSimilarScore=curComp
-                        mostSimilarWord= spell_check.english_dict[j]
-        if mostSimilarWord!=None:
-                print(mostSimilarWord, mostSimilarScore)
-    print("done")
+    
+    
             
                 
         
