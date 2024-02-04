@@ -1,4 +1,6 @@
-# Jimmy & August
+https://github.com/jcandrews2/spell-checker/assets/96207445/8a27cd81-f633-42ae-9aec-e18e78b22186
+
+### Jimmy & August
 
 Spell checker using the levenshtein algorithm
 How to run:
